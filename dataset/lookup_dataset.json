@@ -1,0 +1,17 @@
+{
+	"name": "lookup_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SOURCE_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "watermark"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

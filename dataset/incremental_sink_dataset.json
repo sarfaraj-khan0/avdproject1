@@ -1,0 +1,81 @@
+{
+	"name": "incremental_sink_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SINK_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"folderPath": "landing",
+				"fileSystem": "avdproejectcontainer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "sale_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "sale_time",
+				"type": "INT96"
+			},
+			{
+				"name": "store_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "quantity",
+				"type": "INT32"
+			},
+			{
+				"name": "unit_price",
+				"type": "DECIMAL",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "discount_pct",
+				"type": "DECIMAL",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "amount",
+				"type": "DECIMAL",
+				"precision": 12,
+				"scale": 2
+			},
+			{
+				"name": "payment_mode",
+				"type": "UTF8"
+			},
+			{
+				"name": "channel",
+				"type": "UTF8"
+			},
+			{
+				"name": "created_at",
+				"type": "INT96"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
