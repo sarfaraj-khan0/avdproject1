@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "avdproject1adls"
+		},
+		"Dbnotebook_LS_accessToken": {
+			"value": ""
+		},
+		"SINK_LS_accountKey": {
+			"value": ""
+		},
+		"SOURCE_LS_password": {
+			"value": ""
+		},
+		"Dbnotebook_LS_properties_typeProperties_existingClusterId": {
+			"value": "0701-122948-4dg4atnf"
+		},
+		"SINK_LS_properties_typeProperties_url": {
+			"value": "https://avdprojectadls.dfs.core.windows.net/"
+		},
+		"SOURCE_LS_properties_typeProperties_server": {
+			"value": "avdproeject1server.database.windows.net"
+		},
+		"SOURCE_LS_properties_typeProperties_database": {
+			"value": "avd_project1_db-2026-6-30-19-29"
+		},
+		"SOURCE_LS_properties_typeProperties_userName": {
+			"value": "avduser"
+		}
+	}
+}

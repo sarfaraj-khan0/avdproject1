@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "avdproject1adls"
+		},
+		"Dbnotebook_LS_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'Dbnotebook_LS'"
+		},
+		"SINK_LS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'SINK_LS'"
+		},
+		"SOURCE_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SOURCE_LS'"
+		},
+		"Dbnotebook_LS_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0701-122948-4dg4atnf"
+		},
+		"SINK_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://avdprojectadls.dfs.core.windows.net/"
+		},
+		"SOURCE_LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "avdproeject1server.database.windows.net"
+		},
+		"SOURCE_LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "avd_project1_db-2026-6-30-19-29"
+		},
+		"SOURCE_LS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "avduser"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "avdproject1adls_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Dbnotebook_LS_accessToken": {
+						"value": "[parameters('Dbnotebook_LS_accessToken')]"
+					},
+					"SINK_LS_accountKey": {
+						"value": "[parameters('SINK_LS_accountKey')]"
+					},
+					"SOURCE_LS_password": {
+						"value": "[parameters('SOURCE_LS_password')]"
+					},
+					"Dbnotebook_LS_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('Dbnotebook_LS_properties_typeProperties_existingClusterId')]"
+					},
+					"SINK_LS_properties_typeProperties_url": {
+						"value": "[parameters('SINK_LS_properties_typeProperties_url')]"
+					},
+					"SOURCE_LS_properties_typeProperties_server": {
+						"value": "[parameters('SOURCE_LS_properties_typeProperties_server')]"
+					},
+					"SOURCE_LS_properties_typeProperties_database": {
+						"value": "[parameters('SOURCE_LS_properties_typeProperties_database')]"
+					},
+					"SOURCE_LS_properties_typeProperties_userName": {
+						"value": "[parameters('SOURCE_LS_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
