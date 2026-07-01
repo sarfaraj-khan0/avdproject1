@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/khansarfaraj0403@gmail.com/bronze"
+					"notebookPath": "/Users/sarfarajkhan0403@gmail.com/khansarfaraj0403@gmail.com/bronze"
 				},
 				"linkedServiceName": {
 					"referenceName": "Dbnotebook_LS",
@@ -42,7 +42,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/khansarfaraj0403@gmail.com/Silver"
+					"notebookPath": "/Users/sarfarajkhan0403@gmail.com/khansarfaraj0403@gmail.com/Silver"
 				},
 				"linkedServiceName": {
 					"referenceName": "Dbnotebook_LS",
@@ -69,7 +69,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/khansarfaraj0403@gmail.com/Gold"
+					"notebookPath": "/Users/sarfarajkhan0403@gmail.com/khansarfaraj0403@gmail.com/Gold"
 				},
 				"linkedServiceName": {
 					"referenceName": "Dbnotebook_LS",
