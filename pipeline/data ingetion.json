@@ -374,6 +374,34 @@
 								"referenceName": "SOURCE_LS",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "full load pipeline alert_copy1",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Copy data1",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "POST",
+								"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
+								"body": {
+									"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data1').output.errors[0].Message}\"\n}\n",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -560,7 +588,7 @@
 									},
 									"table_name": {
 										"value": {
-											"value": "@activity('Incremental_load').output.value.table_name",
+											"value": "@activity('Incremental_load').output.value[0]",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -571,64 +599,36 @@
 								"referenceName": "SOURCE_LS",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "incremental load pipeline alert_copy1",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Copy data2_copy1",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "POST",
+								"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
+								"body": {
+									"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data2_copy1').output.errors[0].Message}\"\n}\n",
+									"type": "Expression"
+								}
+							}
 						}
 					]
-				}
-			},
-			{
-				"name": "full load pipeline alert",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "ForEach1",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"method": "POST",
-					"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
-					"body": {
-						"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data1').output.errors[0].Message}\"\n}\n",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "incremental load pipeline alert",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "ForEach2",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"method": "POST",
-					"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
-					"body": {
-						"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data2_copy1').output.errors[0].Message}\"\n}\n",
-						"type": "Expression"
-					}
 				}
 			}
 		],
