@@ -215,7 +215,7 @@
 									},
 									"end_time": {
 										"value": {
-											"value": "@activity('Copy data1').output.executionDetails[0].endTime\n",
+											"value": "@activity('Copy data1').ExecutionEndTime",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -257,14 +257,14 @@
 									},
 									"start_time": {
 										"value": {
-											"value": "@activity('Copy data1').output.executionDetails[0].startTime\n",
+											"value": "@activity('Copy data1').ExecutionStartTime",
 											"type": "Expression"
 										},
 										"type": "DateTime"
 									},
 									"status": {
 										"value": {
-											"value": "@activity('Copy data1').output.status",
+											"value": "@activity('Copy data1').status",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -560,7 +560,7 @@
 									},
 									"table_name": {
 										"value": {
-											"value": "@item().table_name",
+											"value": "@activity('Incremental_load').output.value.table_name",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -578,8 +578,6 @@
 			{
 				"name": "full load pipeline alert",
 				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -598,9 +596,37 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "POST",
-					"url": "https://prod-29.northcentralus.logic.azure.com:443/workflows/cb78a93c2f494c7ea045664a8ce48f2d/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=pcvzFW9X4hGC0qkhjU3jtHwDbgDk8IE7dEcnEh9Po3A",
+					"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
 					"body": {
 						"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data1').output.errors[0].Message}\"\n}\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "incremental load pipeline alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ForEach2",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-24.northcentralus.logic.azure.com:443/workflows/01ae0d1676e546eeb862a5ca8755f52e/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=DQKdXZZbaX2RgIKTRZaaoMX2YQJDWmvI3JlH33SJPrs",
+					"body": {
+						"value": "{\n\"PipelineName\":\"@{pipeline().Pipeline}\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"RunIDs\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"@{activity('Copy data2_copy1').output.errors[0].Message}\"\n}\n",
 						"type": "Expression"
 					}
 				}
