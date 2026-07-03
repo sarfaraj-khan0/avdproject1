@@ -215,7 +215,7 @@
 									},
 									"end_time": {
 										"value": {
-											"value": "@activity('Copy data1').output.ExecutionEndTime",
+											"value": "@activity('Copy data1').output.executionDetails[0].endTime\n",
 											"type": "Expression"
 										},
 										"type": "DateTime"
@@ -257,7 +257,7 @@
 									},
 									"start_time": {
 										"value": {
-											"value": "@activity('Copy data1').output.ExecutionStartTime",
+											"value": "@activity('Copy data1').output.executionDetails[0].startTime\n",
 											"type": "Expression"
 										},
 										"type": "DateTime"
