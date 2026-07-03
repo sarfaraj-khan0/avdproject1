@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"folderPath": "landing",
-				"fileSystem": "avdprojectcontainer"
+				"fileSystem": "avdproject"
 			},
 			"compressionCodec": "snappy"
 		},
